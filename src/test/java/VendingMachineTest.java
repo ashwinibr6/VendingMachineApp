@@ -80,6 +80,59 @@ public class VendingMachineTest {
         assertEquals(item1.getItemPrice(), availableItemList.get(0).getItemPrice());
         assertEquals(item1.getItemCode(), availableItemList.get(0).getItemCode());
 
+    }
+
+    @Test
+    public void check_customer_balance(){
+        vendingMachine.insertMoney(10.0);
+        assertEquals(10.0, vendingMachine.getCustomerBalance());
+    }
+
+    @Test
+    public void purchase_Item(){
+        //Given
+        double expectedBalance = vendingMachine.getBalance();
+        vendingMachine.insertMoney(10.0);
+        expectedBalance = expectedBalance +10.0;
+
+        //when
+        Item actualItem = vendingMachine.getItem(item1.getItemCode());
+        vendingMachine.removeItem(actualItem);
+
+        //then
+        assertEquals(expectedBalance, vendingMachine.getBalance());
+        Item actual = vendingMachine.getItem(item1.getItemCode());
+        assertEquals(null, actual );
 
     }
+
+    @Test
+    public void non_existing_item(){
+        //given
+        vendingMachine.insertMoney(20.0);
+
+        //when
+        try {
+            vendingMachine.getItem("fte2d");
+            fail();
+        }catch(Exception ex){
+            assertEquals("No such Item", ex.getMessage());
+        }
+
+
+
+    }
+
+    @Test
+    public void insufficientFund(){
+        //Given
+        vendingMachine.insertMoney(1.00);
+
+        //when
+       /// vendingMachine.isSufficientFund(item1.getItemCode());
+
+
+    }
+
+
 }

@@ -33,3 +33,35 @@ As a customer, I want to see what is available, so that I can make a purchase.
 Given there are items in stock
 When I check what is available
 Then I should see the name, price and code of the items
+
+----------------------------------------
+As a customer, I want to know how much money I have inserted, so that I know what I can purchase.
+
+Given I have inserted some money into the vending machine
+When I check amount inserted
+Then I should see the amount
+
+-----------------------------------------------
+As a customer, I want to purchase an item.
+
+Given I have inserted enough money for an item
+When I enter the item code
+Then I get the item
+And the balance of the vending machine goes up by that amount
+And the item is removed from the stock
+
+-------------------------------------------------------------
+As a customer, I want to see a message if I enter a non-existent code, so that I can make another choice.
+
+Given I have inserted some amount of money
+When I enter a non-existent item code
+Then the vending machine shows no such item
+
+
+---------------------------------------------------
+
+As a customer, I want to see a message if my deposit is insufficient, so that I know to add more money.
+
+Given I have inserted some amount of money
+When I enter an item code of an item that costs more that I have inserted
+Then the vending machine shows insufficient fund
